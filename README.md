@@ -1,2 +1,2 @@
-# Zepto-Slide
-A zepto slider for mobile
+# Zepto-Slide for mobile
+Just another zepto slider :))

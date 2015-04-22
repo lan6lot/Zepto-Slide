@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, user-scalable=0" charset="UTF-8">
+    <title>zeptoSlide</title>
+<style>
+*{margin:0;padding:0;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-text-size-adjust:none;}
+#slider{width:100%;height:320px;background:#eee;overflow:hidden;list-style:none;}
+#slider li{width:100%;height:320px;line-height:320px;text-align:center;font-size:36px;color:#222;}
+</style>
+</head>
+<body>
+<ul id="slider">
+    <li style="background:#eee;">1</li>
+    <li style="background:#ccc;">2</li>
+    <li style="background:#aaa;">3</li>
+    <li style="background:#999;">4</li>
+    <li style="background:#777;">5</li>
+    <li style="background:#555;">6</li>
+</ul>
+<script src="zepto.min.js"></script>
+<script src="zeptoSlide.js"></script>
+<script>
+$(function(){
+    var  slider = $('#slider').slide();
+});
+</script>
+</body>
+</html>
