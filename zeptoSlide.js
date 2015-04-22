@@ -17,7 +17,12 @@
             target : el,
             translateDuration : option.translateDuration || 500,
             autoPlay : option.autoPlay || true,
-            autoPlayDuration : option.autoPlayDuration || 8000
+            autoPlayDuration : option.autoPlayDuration || 8000,
+            clickEvent : option.clickEvent || '_click'
+        })
+
+        el.click(function(e){
+            e.preventDefault();
         })
 
         this.init();
@@ -59,6 +64,9 @@
         me.autoPlay && me._autoPlay();
     }
 
+    Slider.prototype.getNowIndex = function(){
+        return this.index;
+    }
     Slider.prototype.goDirection = function(direction,time){
         this.offset -= this.WIDTH*direction;
         this.index = (this.index + parseInt(direction))%this.items.length;
@@ -97,7 +105,7 @@
 
     function touchStartHandler(e){
         var position = this.start = getPosition(e.touches[0]);
-        
+        this.move = null;
         // this.lock = false;
         // this.unlock = false;
 
@@ -139,6 +147,12 @@
 
     function touchEndHandler(e){
         // if(this.lock)return;
+
+        if(!this.move){
+            this.target.trigger(this.clickEvent);
+            return;
+        }
+
         var offset = this.move.x-this.start.x,
             changePage = ((this.WIDTH-Math.abs(offset))/this.WIDTH <= 0.7),
             time = Date.now() - this.startTime,

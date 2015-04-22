@@ -22,7 +22,21 @@
 <script src="zeptoSlide.js"></script>
 <script>
 $(function(){
-    var  slider = $('#slider').slide();
+
+    var slider = $('#slider').slide({
+    	clickEvent : '_click'
+    });
+
+    // slide items click event
+    var items = $('#slider li');
+    $('#slider').on('_click',function(e){
+    	var index = slider.getNowIndex(),
+    		target = $(items[index]);
+
+    	// Todo
+    	alert('click:item '+target.html())
+    })
+
 });
 </script>
 </body>
