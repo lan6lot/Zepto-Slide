@@ -140,7 +140,7 @@
     function touchEndHandler(e){
         // if(this.lock)return;
         var offset = this.move.x-this.start.x,
-            changePage = ((this.WIDTH-Math.abs(offset))/this.WIDTH <= 0.5),
+            changePage = ((this.WIDTH-Math.abs(offset))/this.WIDTH <= 0.7),
             time = Date.now() - this.startTime,
             direction = offset > 0 ? '-1' : '1';
 
