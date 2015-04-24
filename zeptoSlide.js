@@ -85,11 +85,14 @@
 
     Slider.prototype._preload = function(direction){
         var index = (this.index + direction) % this.items.length;
-
         if(index < 0){
             index+=this.items.length;
         }
+        if(this.index_preload == index){
+            return;
+        }
         this.items.eq(index).css('left',this.WIDTH*direction-this.offset+'px')
+        this.index_preload = index;
     }
 
     Slider.prototype._autoPlay = function(){
@@ -116,26 +119,27 @@
 
     function touchMoveHandler(e){
         // if(this.lock)return;
-
-        this.timer && clearTimeout(this.timer);
-        this.timer = null;
+        if(this.timer){
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
 
         var move = this.move = getPosition(e.touches[0]),
             start = this.start;
+        /*
+        // Y-direction lock
+        if(lastMove.hasOwnProperty('x') && lastMove.hasOwnProperty('y')){
+            if(Math.abs(move.x-lastMove.x) < Math.abs(move.y-lastMove.y)){
+                if(!this.unlock){
+                    this.lock = true;
+                    return;
+                }
+            }else{
+                this.unlock = true;
+            }
+        }
+        */
 
-        // if(lastMove.hasOwnProperty('x') && lastMove.hasOwnProperty('y')){
-        //     if(Math.abs(move.x-lastMove.x) < Math.abs(move.y-lastMove.y)){
-        //         if(!this.unlock){
-        //             this.lock = true;
-        //             return;
-        //         }
-        //     }else{
-        //         this.unlock = true;
-        //     }
-        // }
-
-        stopBubble(e);
-        e.preventDefault();
         lastMove = move;
         
         var _offset = move.x - start.x,
@@ -147,7 +151,6 @@
 
     function touchEndHandler(e){
         // if(this.lock)return;
-
         if(!this.move){
             this.target.trigger(this.clickEvent);
             return;
